@@ -1,6 +1,10 @@
+import faker from 'faker';
+
 import {
   AddAccountRepository,
   CheckAccountByEmailRepository,
+  LoadAccountByEmailRepository,
+  UpdateTokenRepository,
 } from '@/data/contracts';
 
 export class CheckAccountByEmailRepositorySpy
@@ -26,5 +30,33 @@ export class AddAccountRepositorySpy implements AddAccountRepository {
   ): Promise<AddAccountRepository.Result> {
     this.account = account;
     return this.result;
+  }
+}
+
+export class LoadAccountByEmailRepositorySpy
+  implements LoadAccountByEmailRepository
+{
+  email: string;
+  result = {
+    id: faker.datatype.uuid(),
+    username: faker.name.findName(),
+    password: faker.internet.password(),
+  };
+
+  async loadByEmail(
+    email: string,
+  ): Promise<LoadAccountByEmailRepository.Result> {
+    this.email = email;
+    return this.result;
+  }
+}
+
+export class UpdateTokenRepositorySpy implements UpdateTokenRepository {
+  id: string;
+  token: string;
+
+  async updateToken(id: string, token: string): Promise<void> {
+    this.id = id;
+    this.token = token;
   }
 }

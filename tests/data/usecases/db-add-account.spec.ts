@@ -65,6 +65,7 @@ describe('DbAddAccount Usecase', () => {
     await sut.add(request);
     expect(addAccountRepositorySpy.account).toEqual({
       email: request.email,
+      username: request.username,
       password: hasherSpy.digest,
     });
   });

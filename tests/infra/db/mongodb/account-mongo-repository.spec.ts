@@ -50,4 +50,42 @@ describe('AccountMongoRepository', () => {
       expect(exists).toBe(false);
     });
   });
+
+  describe('loadByEmail()', () => {
+    it('Should return an account on success', async () => {
+      const sut = makeSut();
+      const addAccountParams = mockAddAccountParams();
+      await accountCollection.insertOne(addAccountParams);
+      const account = await sut.loadByEmail(addAccountParams.email);
+      expect(account).toBeTruthy();
+      expect(account.id).toBeTruthy();
+      expect(account.username).toBeTruthy();
+      expect(account.password).toBe(addAccountParams.password);
+    });
+
+    it('Should return null if loadByEmail fails', async () => {
+      const sut = makeSut();
+      const addAccountParams = mockAddAccountParams();
+      await accountCollection.insertOne(addAccountParams);
+      const account = await sut.loadByEmail(faker.internet.email());
+      expect(account).toBeFalsy();
+    });
+  });
+
+  describe('updateToken()', () => {
+    it('Should update the account token on success', async () => {
+      const sut = makeSut();
+      const addAccountParams = mockAddAccountParams();
+      await accountCollection.insertOne(addAccountParams);
+      const fakeAccount = await accountCollection.findOne({
+        email: addAccountParams.email,
+      });
+      expect(fakeAccount.token).toBeFalsy();
+      const token = faker.datatype.uuid();
+      await sut.updateToken(fakeAccount._id, token);
+      const account = await accountCollection.findOne({ _id: fakeAccount._id });
+      expect(account).toBeTruthy();
+      expect(account.token).toBe(token);
+    });
+  });
 });

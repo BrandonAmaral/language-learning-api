@@ -14,6 +14,7 @@ const mockRequest = (): SignUpController.Params => {
   const password = faker.internet.password();
   return {
     email: faker.internet.email(),
+    username: faker.internet.userName(),
     password,
     passwordConfirmation: password,
   };
@@ -45,6 +46,7 @@ describe('SignUp Controller', () => {
     await sut.handle(request);
     expect(addAccountSpy.params).toEqual({
       email: request.email,
+      username: request.username,
       password: request.password,
     });
   });

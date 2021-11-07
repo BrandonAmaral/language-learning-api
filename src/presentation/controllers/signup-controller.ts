@@ -15,9 +15,10 @@ export class SignUpController implements Controller {
       if (error) {
         return badRequest(error);
       }
-      const { email, password } = request;
+      const { email, password, username } = request;
       const account = await this.addAccount.add({
         email,
+        username,
         password,
       });
       if (!account) {
@@ -33,6 +34,7 @@ export class SignUpController implements Controller {
 export namespace SignUpController {
   export type Params = {
     email: string;
+    username: string;
     password: string;
     passwordConfirmation: string;
   };
