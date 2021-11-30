@@ -10,7 +10,7 @@ import {
 } from '@/presentation/errors';
 import { throwError } from '@/tests/domain/mocks';
 
-const mockRequest = (): SignUpController.Params => {
+const mockRequest = (): SignUpController.Request => {
   const password = faker.internet.password();
   return {
     email: faker.internet.email(),

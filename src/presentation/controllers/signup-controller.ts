@@ -9,7 +9,7 @@ export class SignUpController implements Controller {
     private readonly validation: Validation,
   ) {}
 
-  async handle(request: SignUpController.Params): Promise<HttpResponse> {
+  async handle(request: SignUpController.Request): Promise<HttpResponse> {
     try {
       const error = this.validation.validate(request);
       if (error) {
@@ -32,7 +32,7 @@ export class SignUpController implements Controller {
 }
 
 export namespace SignUpController {
-  export type Params = {
+  export type Request = {
     email: string;
     username: string;
     password: string;

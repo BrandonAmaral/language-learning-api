@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import { Hasher, HasherComparer, Encrypter } from '@/data/contracts';
+import { Hasher, HasherComparer, Encrypter, Decrypter } from '@/data/contracts';
 
 export class HasherSpy implements Hasher {
   plaintext: string;
@@ -31,5 +31,15 @@ export class EncrypterSpy implements Encrypter {
   async encrypt(plaintext: string): Promise<string> {
     this.plaintext = plaintext;
     return this.ciphertext;
+  }
+}
+
+export class DecrypterSpy implements Decrypter {
+  plaintext = faker.internet.password();
+  ciphertext: string;
+
+  async decrypt(ciphertext: string): Promise<string> {
+    this.ciphertext = ciphertext;
+    return this.plaintext;
   }
 }

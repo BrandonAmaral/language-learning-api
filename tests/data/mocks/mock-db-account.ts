@@ -5,6 +5,7 @@ import {
   CheckAccountByEmailRepository,
   LoadAccountByEmailRepository,
   UpdateTokenRepository,
+  LoadAccountByTokenRepository,
 } from '@/data/contracts';
 
 export class CheckAccountByEmailRepositorySpy
@@ -58,5 +59,24 @@ export class UpdateTokenRepositorySpy implements UpdateTokenRepository {
   async updateToken(id: string, token: string): Promise<void> {
     this.id = id;
     this.token = token;
+  }
+}
+
+export class LoadAccountByTokenRepositorySpy
+  implements LoadAccountByTokenRepository
+{
+  token: string;
+  role: string;
+  result = {
+    id: faker.datatype.uuid(),
+  };
+
+  async loadByToken(
+    token: string,
+    role?: string,
+  ): Promise<LoadAccountByTokenRepository.Result> {
+    this.token = token;
+    this.role = role;
+    return this.result;
   }
 }

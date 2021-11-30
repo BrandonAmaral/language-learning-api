@@ -6,6 +6,11 @@ export const ok = (data: any): HttpResponse => ({
   statusCode: 200,
 });
 
+export const noContent = (): HttpResponse => ({
+  body: null,
+  statusCode: 204,
+});
+
 export const badRequest = (data: any): HttpResponse => ({
   body: data,
   statusCode: 400,
