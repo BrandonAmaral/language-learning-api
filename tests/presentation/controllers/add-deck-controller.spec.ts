@@ -9,6 +9,7 @@ import { throwError } from '@/tests/domain/mocks';
 
 const mockRequest = (): AddDeckController.Params => ({
   title: faker.random.words(),
+  accountId: faker.datatype.uuid(),
   isPublic: true,
 });
 
@@ -50,7 +51,9 @@ describe('AddDeck Controller', () => {
     const request = mockRequest();
     await sut.handle(request);
     expect(addDeckSpy.params).toEqual({
-      ...request,
+      title: request.title,
+      isPublic: request.isPublic,
+      owner: request.accountId,
       createdAt: new Date(),
       modifiedAt: new Date(),
     });

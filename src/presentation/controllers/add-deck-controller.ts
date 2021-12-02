@@ -14,8 +14,11 @@ export class AddDeckController implements Controller {
       if (error) {
         return badRequest(error);
       }
+      const { title, isPublic, accountId } = request;
       await this.addDeck.add({
-        ...request,
+        title,
+        isPublic,
+        owner: accountId,
         createdAt: new Date(),
         modifiedAt: new Date(),
       });
@@ -28,6 +31,7 @@ export class AddDeckController implements Controller {
 
 export namespace AddDeckController {
   export type Params = {
+    accountId: string;
     title: string;
     isPublic: boolean;
   };
