@@ -4,3 +4,5 @@ export * from './signin-controller-factory';
 export * from './signin-validation-factory';
 export * from './add-deck-controller-factory';
 export * from './add-deck-validation-factory';
+export * from './add-card-controller-factory';
+export * from './add-card-validation-factory';
