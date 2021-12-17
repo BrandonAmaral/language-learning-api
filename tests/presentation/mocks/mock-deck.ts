@@ -1,4 +1,10 @@
-import { AddDeck, AddCard, CheckDeckByOwnerId } from '@/domain/usecases';
+import {
+  AddDeck,
+  AddCard,
+  CheckDeckByOwnerId,
+  LoadDecks,
+} from '@/domain/usecases';
+import { mockDeckModel } from '@/tests/domain/mocks';
 
 export class AddDeckSpy implements AddDeck {
   params: AddDeck.Params;
@@ -21,8 +27,21 @@ export class CheckDeckByOwnerIdSpy implements CheckDeckByOwnerId {
   accountId: string;
   result = true;
 
-  async checkByOwnerId(deckId: string, accountId: string) {
+  async checkByOwnerId(
+    deckId: string,
+    accountId: string,
+  ): Promise<CheckDeckByOwnerId.Result> {
     this.deckId = deckId;
+    this.accountId = accountId;
+    return this.result;
+  }
+}
+
+export class LoadDecksSpy implements LoadDecks {
+  accountId: string;
+  result = mockDeckModel();
+
+  async load(accountId: string): Promise<LoadDecks.Result> {
     this.accountId = accountId;
     return this.result;
   }

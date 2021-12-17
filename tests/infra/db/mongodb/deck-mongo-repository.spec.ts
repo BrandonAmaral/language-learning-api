@@ -82,4 +82,23 @@ describe('DeckMongoRepository', () => {
       expect(exists).toBe(false);
     });
   });
+
+  describe('load()', () => {
+    it('Should load an array of Decks', async () => {
+      const sut = makeSut();
+      const deck = await mockDeck();
+      const load = await sut.load(deck.owner);
+      expect(load.length).toBe(1);
+      expect(load[0].id).toEqual(deck.id);
+      expect(load[0].title).toBe(deck.title);
+      expect(load[0].owner).toEqual(deck.owner);
+    });
+
+    it('Should load an empty array', async () => {
+      const sut = makeSut();
+      const account = await accountCollection.insertOne(mockAddAccountParams());
+      const load = await sut.load(account.insertedId.toHexString());
+      expect(load.length).toBe(0);
+    });
+  });
 });

@@ -1,11 +1,16 @@
 import { Router } from 'express';
 
 import { adaptRoute } from '@/main/adapters';
-import { makeAddDeckController, makeAddCardController } from '@/main/factories';
+import {
+  makeAddDeckController,
+  makeAddCardController,
+  makeLoadDecksController,
+} from '@/main/factories';
 import { auth } from '@/main/middlewares';
 
 export default (router: Router): void => {
   router.post('/decks', auth, adaptRoute(makeAddDeckController()));
+  router.get('/decks', auth, adaptRoute(makeLoadDecksController()));
   router.patch(
     '/decks/:deckId/cards',
     auth,

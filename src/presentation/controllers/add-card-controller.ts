@@ -15,7 +15,7 @@ export class AddCardController implements Controller {
     private readonly checkDeckByOwnerId: CheckDeckByOwnerId,
   ) {}
 
-  async handle(request: AddCardController.Params): Promise<HttpResponse> {
+  async handle(request: AddCardController.Request): Promise<HttpResponse> {
     try {
       const error = this.validation.validate(request);
       if (error) {
@@ -38,7 +38,7 @@ export class AddCardController implements Controller {
 }
 
 export namespace AddCardController {
-  export type Params = {
+  export type Request = {
     deckId: string;
     accountId: string;
     front: {

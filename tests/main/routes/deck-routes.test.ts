@@ -78,6 +78,25 @@ describe('Deck Routes', () => {
     });
   });
 
+  describe('GET /decks', () => {
+    it('Should return 200 on load Decks with valid token', async () => {
+      const { token, id } = await mockAccount();
+      await deckCollection.insertOne({
+        title: 'any_title',
+        public: true,
+        owner: new ObjectId(id),
+      });
+      await request(app)
+        .get('/api/decks')
+        .set('x-access-token', token)
+        .expect(200);
+    });
+
+    it('Should return 403 on load Decks without token', async () => {
+      await request(app).get('/api/decks').expect(403);
+    });
+  });
+
   describe('PATCH /decks/:deckId/cards', () => {
     it('Should return 204 on add card with valid token', async () => {
       const { token, id } = await mockAccount();

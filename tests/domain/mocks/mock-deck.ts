@@ -1,6 +1,7 @@
 import faker from 'faker';
 
 import { AddCard, AddDeck } from '@/domain/usecases';
+import { DeckModel } from '@/domain/models';
 
 export const mockAddDeckParams = (): AddDeck.Params => ({
   title: faker.random.words(),
@@ -24,3 +25,14 @@ export const mockAddCardParams = (): AddCard.Params => ({
     },
   },
 });
+
+export const mockDeckModel = (): DeckModel[] => [
+  {
+    id: faker.datatype.uuid(),
+    owner: faker.datatype.uuid(),
+    title: faker.random.words(),
+    isPublic: true,
+    createdAt: new Date(),
+    modifiedAt: new Date(),
+  },
+];

@@ -15,7 +15,7 @@ import {
 import { AccessDeniedError, MissingParamError } from '@/presentation/errors';
 import { throwError } from '@/tests/domain/mocks';
 
-const mockRequest = (): AddCardController.Params => ({
+const mockRequest = (): AddCardController.Request => ({
   accountId: faker.datatype.uuid(),
   deckId: faker.datatype.uuid(),
   front: {

@@ -4,3 +4,4 @@ export * from './add-deck';
 export * from './load-account-by-token';
 export * from './add-card';
 export * from './check-deck-by-owner-id';
+export * from './load-decks';

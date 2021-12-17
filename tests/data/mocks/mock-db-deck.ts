@@ -2,7 +2,9 @@ import {
   AddDeckRepository,
   AddCardRepository,
   CheckDeckByOwnerIdRepository,
+  LoadDecksRepository,
 } from '@/data/contracts';
+import { mockDeckModel } from '@/tests/domain/mocks';
 
 export class AddDeckRepositorySpy implements AddDeckRepository {
   params: AddDeckRepository.Params;
@@ -34,6 +36,16 @@ export class CheckDeckByOwnerIdRepositorySpy
     accountId: string,
   ): Promise<CheckDeckByOwnerIdRepository.Result> {
     this.deckId = deckId;
+    this.accountId = accountId;
+    return this.result;
+  }
+}
+
+export class LoadDecksRepositorySpy implements LoadDecksRepository {
+  accountId: string;
+  result = mockDeckModel();
+
+  async load(accountId: string): Promise<LoadDecksRepository.Result> {
     this.accountId = accountId;
     return this.result;
   }

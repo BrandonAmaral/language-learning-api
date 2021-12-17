@@ -8,7 +8,7 @@ export class AddDeckController implements Controller {
     private readonly validation: Validation,
   ) {}
 
-  async handle(request: AddDeckController.Params): Promise<HttpResponse> {
+  async handle(request: AddDeckController.Request): Promise<HttpResponse> {
     try {
       const error = this.validation.validate(request);
       if (error) {
@@ -30,7 +30,7 @@ export class AddDeckController implements Controller {
 }
 
 export namespace AddDeckController {
-  export type Params = {
+  export type Request = {
     accountId: string;
     title: string;
     isPublic: boolean;

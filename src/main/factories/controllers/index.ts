@@ -6,3 +6,4 @@ export * from './add-deck-controller-factory';
 export * from './add-deck-validation-factory';
 export * from './add-card-controller-factory';
 export * from './add-card-validation-factory';
+export * from './load-decks-controller-factory';

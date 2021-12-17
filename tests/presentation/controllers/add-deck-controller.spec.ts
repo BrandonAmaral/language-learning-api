@@ -7,7 +7,7 @@ import { noContent, serverError, badRequest } from '@/presentation/helpers';
 import { MissingParamError } from '@/presentation/errors';
 import { throwError } from '@/tests/domain/mocks';
 
-const mockRequest = (): AddDeckController.Params => ({
+const mockRequest = (): AddDeckController.Request => ({
   title: faker.random.words(),
   accountId: faker.datatype.uuid(),
   isPublic: true,
