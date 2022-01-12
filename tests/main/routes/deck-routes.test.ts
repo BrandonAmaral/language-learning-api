@@ -54,11 +54,11 @@ describe('Deck Routes', () => {
     await MongoHelper.disconnect();
   });
 
-  describe('POST /decks', () => {
+  describe('POST /add', () => {
     it('Should return 204 on add deck with valid token', async () => {
       const { token } = await mockAccount();
       await request(app)
-        .post('/api/decks')
+        .post('/api/decks/add')
         .set('x-access-token', token)
         .send({
           title: 'any_name',
@@ -69,7 +69,7 @@ describe('Deck Routes', () => {
 
     it('Should return 403 on add deck without token', async () => {
       await request(app)
-        .post('/api/decks')
+        .post('/api/decks/add')
         .send({
           title: 'any_name',
           isPublic: true,
@@ -78,7 +78,7 @@ describe('Deck Routes', () => {
     });
   });
 
-  describe('GET /decks', () => {
+  describe('GET /load', () => {
     it('Should return 200 on load Decks with valid token', async () => {
       const { token, id } = await mockAccount();
       await deckCollection.insertOne({
@@ -87,17 +87,17 @@ describe('Deck Routes', () => {
         owner: new ObjectId(id),
       });
       await request(app)
-        .get('/api/decks')
+        .get('/api/decks/load')
         .set('x-access-token', token)
         .expect(200);
     });
 
     it('Should return 403 on load Decks without token', async () => {
-      await request(app).get('/api/decks').expect(403);
+      await request(app).get('/api/decks/load').expect(403);
     });
   });
 
-  describe('PATCH /decks/:deckId/cards', () => {
+  describe('PATCH /:deckId/add-card', () => {
     it('Should return 204 on add card with valid token', async () => {
       const { token, id } = await mockAccount();
       const deck = await deckCollection.insertOne({
@@ -106,7 +106,7 @@ describe('Deck Routes', () => {
         owner: new ObjectId(id),
       });
       await request(app)
-        .patch(`/api/decks/${deck.insertedId.toHexString()}/cards`)
+        .patch(`/api/decks/${deck.insertedId.toHexString()}/add-card`)
         .set('x-access-token', token)
         .send({
           front: {
@@ -127,7 +127,7 @@ describe('Deck Routes', () => {
         owner: new ObjectId(id),
       });
       await request(app)
-        .patch(`/api/decks/${deck.insertedId.toHexString()}/cards`)
+        .patch(`/api/decks/${deck.insertedId.toHexString()}/add-card`)
         .send({
           front: {
             phrase: 'any_phrase',

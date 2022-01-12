@@ -26,11 +26,11 @@ export class AddCardController implements Controller {
         deckId,
         accountId,
       );
-      if (check) {
-        await this.addCard.add({ front, back, deckId });
-        return noContent();
+      if (!check) {
+        return forbidden(new AccessDeniedError());
       }
-      return forbidden(new AccessDeniedError());
+      await this.addCard.add({ front, back, deckId });
+      return noContent();
     } catch (err) {
       return serverError(err);
     }

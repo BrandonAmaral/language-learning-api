@@ -9,10 +9,10 @@ import {
 import { auth } from '@/main/middlewares';
 
 export default (router: Router): void => {
-  router.post('/decks', auth, adaptRoute(makeAddDeckController()));
-  router.get('/decks', auth, adaptRoute(makeLoadDecksController()));
+  router.post('/decks/add', auth, adaptRoute(makeAddDeckController()));
+  router.get('/decks/load', auth, adaptRoute(makeLoadDecksController()));
   router.patch(
-    '/decks/:deckId/cards',
+    '/decks/:deckId/add-card',
     auth,
     adaptRoute(makeAddCardController()),
   );

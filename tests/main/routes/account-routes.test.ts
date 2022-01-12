@@ -48,7 +48,7 @@ describe('Account Routes', () => {
     });
   });
 
-  describe('POST /login', () => {
+  describe('POST /auth', () => {
     it('Should return 200 on authentication', async () => {
       const password = await hash('any_password', 12);
       await accountCollection.insertOne({
